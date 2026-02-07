@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Especial</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            /* Fondo Inicial: Rosa Pastel */
+            background-color: #fce4ec; 
+            transition: all 1s ease;
+            overflow: hidden;
+        }
+
+        /* Clase que se activará al decir que SI */
+        .fondo-tulipanes {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1554123171-807094406235?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 85%;
+            z-index: 10;
+            transition: transform 0.5s ease;
+        }
+
+        h1 { color: #ad1457; font-size: 1.6rem; margin-bottom: 20px; }
+        
+        /* Imagen principal que cambiará */
+        .foto-central {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: opacity 0.5s ease;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #btnSi { background-color: #ff4d6d; color: white; }
+        #btnNo { background-color: #cfd8dc; color: #546e7a; position: absolute; }
+
+        .hidden { display: none; }
+        
+        #mensajeFinal {
+            color: #880e4f;
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="card">
+        <img id="imagenPrincipal" src="https://media.tenor.com/Xp89HIs968gAAAAj/peach-goma-peach-and-goma.gif" class="foto-central">
+        
+        <div id="pantalla1">
+            <h1>¿Quieres ir a cenar conmigo?</h1>
+            <div class="buttons" style="height: 50px; position: relative;">
+                <button id="btnSi">¡SÍ!</button>
+                <button id="btnNo">No</button>
+            </div>
+        </div>
+
+        <div id="pantalla2" class="hidden">
+            <p id="mensajeFinal">Ponte más hermosa de lo que estás, pasaré por ti a las 7:30 para llevarte a cenar algo rico. <br><br> Te quiero mi princesa 🌷✨</p>
+        </div>
+    </div>
+
+    <script>
+        const btnNo = document.getElementById('btnNo');
+        const btnSi = document.getElementById('btnSi');
+        const img = document.getElementById('imagenPrincipal');
+        const p1 = document.getElementById('pantalla1');
+        const p2 = document.getElementById('pantalla2');
+
+        // URL de la segunda foto (puedes poner una foto de ustedes o algo muy bonito)
+        const urlSegundaFoto = "https://media.tenor.com/7S87X7K-tLIAAAAj/mochi-mochi-peach-cat-cat.gif";
+
+        // Mover el botón "No" aleatoriamente
+        btnNo.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
+            btnNo.style.left = x + 'px';
+            btnNo.style.top = y + 'px';
+        });
+
+        // Acción al aceptar
+        btnSi.addEventListener('click', () => {
+            // Cambio de Imagen
+            img.style.opacity = 0;
+            setTimeout(() => {
+                img.src = urlSegundaFoto; // Cambia a la foto bonita 2
+                img.style.opacity = 1;
+            }, 500);
+
+            // Cambio de Fondo
+            document.body.classList.add('fondo-tulipanes');
+
+            // Cambio de Texto
+            p1.classList.add('hidden');
+            p2.classList.remove('hidden');
+            
+            // Ocultar el botón NO definitivamente
+            btnNo.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
